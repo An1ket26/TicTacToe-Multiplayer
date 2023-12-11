@@ -3,7 +3,7 @@ import {useState} from "react";
 import Playground from './components/Playground';
 import {io} from "socket.io-client"
 
-const socket = io("http://localhost:5000")
+const socket = io("10.116.20.236:5000")
 socket.on("connect",()=>{
   console.log(socket.id);
 })

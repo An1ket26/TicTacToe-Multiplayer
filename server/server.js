@@ -9,11 +9,10 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: "*",
         methods: ["GET", "POST"],
     },
 });
-var numClients={};
 io.on('connection',(socket)=>{
     console.log(`User Connected: ${socket.id}`);
 
@@ -31,6 +30,9 @@ io.on('connection',(socket)=>{
     socket.on("new_move",(data)=>{
         console.log(data);
         socket.to(data.roomId).emit("update",data);
+    })
+    socket.on("winner",(data)=>{
+        socket.to(data.roomId).emit("winner",data.winner);
     })
 
     socket.on("disconnect", () => {
